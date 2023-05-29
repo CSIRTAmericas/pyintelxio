@@ -6,14 +6,21 @@ class IntelXService(intelx):
     def __init__(self, api_key, user_agent):
         super().__init__(api_key, user_agent)
 
-    def search_v2(self, term, date_from=None, date_to=None, max_results=10):
-        data = self.search(term, maxresults=max_results, datefrom=date_from, dateto=date_to)
+    def search_v2(self, term, date_from=None, date_to=None, max_results=10, buckets=[]):
+        data = self.search(term, maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=buckets)
         return data
+    
+    def get_storage_data(self, id, bucket):
+        return self.FILE_VIEW(0, 0, id, bucket) 
+    
+    def get_storage_preview(self, id, bucket, ctype, media):
+        return self.FILE_PREVIEW(ctype, media, 0, id, bucket) 
     
     def get_capabilities(self):
         return self.GET_CAPABILITIES()
     
 class IdentityService(intelx):
+
     def __init__(self, api_key, user_agent, api_root):
         super().__init__(api_key, user_agent)
         self.API_ROOT = api_root
@@ -41,7 +48,7 @@ class IdentityService(intelx):
         }
         r = requests.get(self.API_ROOT + '/live/search/internal', headers=self.HEADERS, params=p)
         if r.status_code == 200:
-            return self.get_search_results(r.json()['id'])
+            return r.json()['id']
         else:
             return r.status_code
         
@@ -66,7 +73,7 @@ class IdentityService(intelx):
         }
         r = requests.get(self.API_ROOT + '/accounts/csv', headers=self.HEADERS, params=p)
         if r.status_code == 200:
-            return self.get_search_results(r.json()['id'])
+            return r.json()['id']
         else:
             return (r.status_code, r.text)
     
