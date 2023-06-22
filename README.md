@@ -6,6 +6,15 @@ This python library is developed based on the original intelx library adding the
 
 https://github.com/IntelligenceX/SDK/tree/master/Python
 
+## How to use
+
+`python 
+python .\intelx.py -apikey {API_KEY} -search {search_term} -limit 10 
+
+python .\intelx.py -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --identity
+
+python .\intelx.py -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --identity -download {SYSTEM_ID} -name {FILE_NAME} -bucket {BUCKET_NAME}
+`
 ## Buckets
 - darknet.tor
 - darknet.i2p

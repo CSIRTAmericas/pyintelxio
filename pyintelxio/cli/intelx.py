@@ -8,7 +8,7 @@ import json
 import time
 import tabulate
 import argparse
-from intelx import intelx, IdentityService
+from pyintelxio.intelx import intelx, IdentityService
 #from intelxapi import intelx, IdentityService
 from termcolor import colored
 from pygments import highlight
@@ -53,7 +53,7 @@ def pbsearch(ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", date
 def idsearch(identity_ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", terminate=[]):
     if not args.raw:
         print(colored(f"[{rightnow()}] Starting search of \"{args.search}\".", 'green'))
-    s = ix.search(term=query, maxresults=maxresults, buckets=buckets, timeout=timeout, datefrom=datefrom, dateto=dateto,  terminate=terminate)
+    s = identity_ix.search(term=query, maxresults=maxresults, buckets=buckets, timeout=timeout, datefrom=datefrom, dateto=dateto,  terminate=terminate)
     return s
 
 def get_stats(stats):
@@ -137,22 +137,20 @@ if __name__ == '__main__':
     parser.add_argument('--capabilities', help="show your account's capabilities", action="store_true")
     parser.add_argument('--stats', help="show stats of search results", action="store_true")
     parser.add_argument('--raw', help="show raw json", action="store_true")
-    parser.add_argument('--identityenabled', help="enable identity api search (requires api key)")
-    parser.add_argument('-identy', help="search query in identity api")
-    
-                        )")
+    parser.add_argument('--identityenabled', help="enable identity api search (requires api key)", action="store_true")
+    parser.add_argument('--identity', help="search query in identity api", action="store_true")
     args = parser.parse_args()
 
     # configure IX & the API key
     if 'INTELX_KEY' in os.environ:
         ix = intelx(os.environ['INTELX_KEY'])
         if 'IDENTITY_ENABLED' in os.environ:
-            identity_ix = IdentityService(API_KEY)
+            ix_identity = IdentityService(os.environ['INTELX_KEY'])
 
     elif args.apikey:
         ix = intelx(args.apikey)
         if args.identityenabled:
-            identix = IdentityService(args.apikey)
+            ix_identity = IdentityService(args.apikey)
 
     else:
         print('No API key specified. Please use the "-apikey" parameter or set the environment variable "INTELX_KEY".')
@@ -197,7 +195,7 @@ if __name__ == '__main__':
         if args.media:
             media = int(args.media)
 
-        if not args.phonebook and not args.identy:
+        if not args.phonebook and not args.identity:
             search = search(
                 ix,
                 args.search,
@@ -210,7 +208,7 @@ if __name__ == '__main__':
                 media=media,
                 terminate=terminate
             )
-        elif args.phonebook and not args.identy:
+        elif args.phonebook and not args.identity:
             if(args.phonebook == 'domains'):
                 targetval = 1
             elif(args.phonebook == 'emails'):
@@ -232,7 +230,7 @@ if __name__ == '__main__':
                 terminate=terminate,
                 target=targetval
             )
-        elseif args.identy:
+        elif args.identity:
             search = idsearch(
                 ix_identity,
                 args.search,
@@ -244,16 +242,16 @@ if __name__ == '__main__':
                 terminate=terminate
             )
 
-        if args.raw:
+        if args.raw or args.identity:
             print(json.dumps(search))
 
         if args.stats:
             get_stats(search)
 
-        elif not args.raw and not args.phonebook:
+        elif not args.raw and not args.phonebook and not args.identity:
             quick_search_results(ix, search, int(args.limit))
 
-        elif not args.raw and args.phonebook:
+        elif not args.raw and args.phonebook and not args.identity:
             if args.emails:
                 print()
                 pb_search_results_emails(ix, search)
@@ -268,7 +266,7 @@ if __name__ == '__main__':
             fname = args.download + ".bin"
             if args.name:
                 fname = args.name
-            if(ix.FILE_READ(args.download, bucket=args.bucket, filename=fname)):
+            if ix.FILE_READ(args.download, bucket=args.bucket, filename=fname):
                 print(colored(f"[{rightnow()}] Successfully downloaded the file '{fname}'.\n", 'green'))
             else:
                 print(colored(f"[{rightnow()}] Failed to download item {args.download}.\n", 'red'))
