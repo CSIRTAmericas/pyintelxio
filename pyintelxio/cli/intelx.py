@@ -50,12 +50,11 @@ def pbsearch(ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", date
     return s
 
 
-def idsearch(ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", sort=4, media=0, terminate=[], target=0):
+def idsearch(identity_ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", terminate=[]):
     if not args.raw:
-        print(colored(f"[{rightnow()}] Starting phonebook search of \"{args.search}\".", 'green'))
-    s = identix.search(args.search, maxresults, buckets, timeout, datefrom, dateto, sort, media, terminate, target)
+        print(colored(f"[{rightnow()}] Starting search of \"{args.search}\".", 'green'))
+    s = ix.search(term=query, maxresults=maxresults, buckets=buckets, timeout=timeout, datefrom=datefrom, dateto=dateto,  terminate=terminate)
     return s
-
 
 def get_stats(stats):
     if not args.raw:
@@ -77,6 +76,7 @@ def quick_search_results(ix, search, limit):
             if args.view:
                 viewtext = ix.FILE_VIEW(result['type'], result['media'], result['storageid'], result['bucket'])
             elif not args.nopreview:
+
                 viewtext = ix.FILE_PREVIEW(result['type'], result['media'], 0, result['storageid'], result['bucket'])
             if(len(result['name']) == 0):
                 result['name'] = "Untitled Document"
@@ -234,17 +234,14 @@ if __name__ == '__main__':
             )
         elseif args.identy:
             search = idsearch(
-                ix,
+                ix_identity,
                 args.search,
                 maxresults=maxresults,
                 buckets=buckets,
                 timeout=timeout,
                 datefrom=datefrom,
                 dateto=dateto,
-                sort=sort,
-                media=media,
-                terminate=terminate,
-                target=targetval
+                terminate=terminate
             )
 
         if args.raw:

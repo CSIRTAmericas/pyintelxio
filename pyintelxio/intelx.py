@@ -18,15 +18,15 @@ class IdentityService(intelx):
         else:
             return r.status_code
 
-    def search(self, selector, date_from="", date_to="", limit=10, skip_invalid=False, bucket_filter=[], analyze=False, terminate=None):
-        p = {
-            "selector": selector,
-            "bucket": bucket_filter,
+    def search(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="",  terminate=[], analyze=False, skip_invalid=False):
+            p = {
+            "selector": term,
+            "bucket": buckets,
             "skipinvalid": skip_invalid,
-            "limit": limit,
+            "limit": maxresults,
             "analyze": analyze,
-            "datefrom": date_from, # "YYYY-MM-DD HH:MM:SS",
-            "dateto": date_to, # "YYYY-MM-DD HH:MM:SS"
+            "datefrom": datefrom, # "YYYY-MM-DD HH:MM:SS",
+            "dateto": dateto, # "YYYY-MM-DD HH:MM:SS"
             "terminate": terminate,
         }
         done = False
@@ -38,12 +38,12 @@ class IdentityService(intelx):
             print(f"[!] intelx.IDENTITY_SEARCH() Received {self.get_error(search_id)}")
         while done == False:
             time.sleep(1)
-            r = self.get_search_results(search_id, limit=limit)
+            r = self.get_search_results(search_id, limit=maxresults)
             for a in r['records']:
                 results.append(a)
-            limit -= len(r['records'])
+            maxresults -= len(r['records'])
             if(r['status'] == 1 or r['status'] == 2 or limit <= 0):
-                if(limit <= 0):
+                if(maxresults <= 0):
                     self.terminate_search(search_id)
                 done = True
         return {'records': results}
