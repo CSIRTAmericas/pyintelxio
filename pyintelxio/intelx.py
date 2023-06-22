@@ -2,23 +2,6 @@ import sys
 from intelxapi import intelx
 import requests
 
-class IntelXService(intelx):
-    def __init__(self, api_key, user_agent):
-        super().__init__(api_key, user_agent)
-
-    def search_v2(self, term, date_from=None, date_to=None, max_results=10, buckets=[]):
-        data = self.search(term, maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=buckets)
-        return data
-    
-    def get_storage_data(self, id, bucket):
-        return self.FILE_VIEW(0, 0, id, bucket) 
-    
-    def get_storage_preview(self, id, bucket, ctype, media):
-        return self.FILE_PREVIEW(ctype, media, 0, id, bucket) 
-    
-    def get_capabilities(self):
-        return self.GET_CAPABILITIES()
-    
 class IdentityService(intelx):
 
     def __init__(self, api_key, user_agent, api_root):
