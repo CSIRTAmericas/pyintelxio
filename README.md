@@ -1,5 +1,11 @@
 # pyintelxio
 
+This library is developed based on the original intelx library adding the functionality of Identity API.
+
+## Original source
+
+https://github.com/IntelligenceX/SDK
+
 ## Buckets
 - darknet.tor
 - darknet.i2p
