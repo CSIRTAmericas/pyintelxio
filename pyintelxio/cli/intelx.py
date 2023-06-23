@@ -138,7 +138,6 @@ if __name__ == '__main__':
     parser.add_argument('--stats', help="show stats of search results", action="store_true")
     parser.add_argument('--raw', help="show raw json", action="store_true")
     parser.add_argument('--identityenabled', help="enable identity api search (requires api key)", action="store_true")
-    parser.add_argument('--identity', help="search query in identity api", action="store_true")
     args = parser.parse_args()
 
     # configure IX & the API key
@@ -195,7 +194,7 @@ if __name__ == '__main__':
         if args.media:
             media = int(args.media)
 
-        if not args.phonebook and not args.identity:
+        if not args.phonebook and not args.identityenabled:
             search = search(
                 ix,
                 args.search,
@@ -208,7 +207,7 @@ if __name__ == '__main__':
                 media=media,
                 terminate=terminate
             )
-        elif args.phonebook and not args.identity:
+        elif args.phonebook and not args.identityenabled:
             if(args.phonebook == 'domains'):
                 targetval = 1
             elif(args.phonebook == 'emails'):
@@ -230,7 +229,7 @@ if __name__ == '__main__':
                 terminate=terminate,
                 target=targetval
             )
-        elif args.identity:
+        elif args.identityenabled:
             search = idsearch(
                 ix_identity,
                 args.search,
@@ -242,16 +241,16 @@ if __name__ == '__main__':
                 terminate=terminate
             )
 
-        if args.raw or args.identity:
+        if args.raw or args.identityenabled:
             print(json.dumps(search))
 
         if args.stats:
             get_stats(search)
 
-        elif not args.raw and not args.phonebook and not args.identity:
+        elif not args.raw and not args.phonebook and not args.identityenabled:
             quick_search_results(ix, search, int(args.limit))
 
-        elif not args.raw and args.phonebook and not args.identity:
+        elif not args.raw and args.phonebook and not args.identityenabled:
             if args.emails:
                 print()
                 pb_search_results_emails(ix, search)
