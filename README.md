@@ -1,21 +1,71 @@
-# pyintelxio
+PUBLICWWW Python Library   
+========================
 
-This python library is developed based on the original intelx library adding the functionality of Identity API.
+This python library is developed based on the original intelx library, but adding the functionality to use Intelx.io Identity API.
 
-## Original source
+Original source could be find here: *https://github.com/IntelligenceX/SDK/tree/master/Python*
 
-https://github.com/IntelligenceX/SDK/tree/master/Python
 
-## How to use
+
+Installation
+------------
+
+```bash
+pip3 install pyintelxio
+```
+
+Usage as command
+================
 
 ```bash 
 
-python .\intelx.py -apikey {API_KEY} -search {search_term} -limit 10 
+pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 
 
-python .\intelx.py -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --identity
+pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --identity
 
-python .\intelx.py -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --identity -download {SYSTEM_ID} -name {FILE_NAME} -bucket {BUCKET_NAME}
 ```
+
+
+SEARCH EXAMPLES
+---------------
+
+* Query for 10 leaks containing pepe@example.com in intelx.io API
+
+```bash
+pyintelxio -apikey {API_KEY} search -search pepe@example.com -limit 10
+```
+
+* Query for 10 leaks of accounts and passwords for domain example.com in identity.intelx.io API
+
+```bash
+pyintelxio -apikey {API_KEY} -search example.com -limit 10 --identityenabled
+```
+* Download some leak file identied by SYSTEM_ID from some previous search
+
+```bash
+pyintelxio -apikey {API_KEY} -download {SYSTEM_ID} -name {FILE_NAME} -bucket {BUCKET_NAME}
+```
+
+
+Usage as library
+================
+
+* Print account information
+
+```python
+import pyintelxio
+api = PyPublicWWW(apikey)
+print(api.info())
+```
+
+* Search for query and getting an export, you can add or not snippets
+
+```python
+import pypublicwww
+
+
+## How to use
+
 ## Buckets
 - darknet.tor
 - darknet.i2p
