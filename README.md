@@ -5,8 +5,6 @@ This python library is developed based on the original intelx library, but addin
 
 Original source could be find here: *https://github.com/IntelligenceX/SDK/tree/master/Python*
 
-
-
 Installation
 ------------
 
@@ -21,10 +19,9 @@ Usage as command
 
 pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 
 
-pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --identity
+pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled
 
 ```
-
 
 SEARCH EXAMPLES
 ---------------
@@ -54,19 +51,17 @@ Usage as library
 
 ```python
 import pyintelxio
-api = PyPublicWWW(apikey)
-print(api.info())
+api = 
+
 ```
 
-* Search for query and getting an export, you can add or not snippets
+* Search for 
 
 ```python
-import pypublicwww
+import pyintelxio
+```
 
-
-## How to use
-
-## Buckets
+## Buckets list
 - darknet.tor
 - darknet.i2p
 - documents.public.scihub
