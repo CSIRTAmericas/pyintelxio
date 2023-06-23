@@ -113,8 +113,8 @@ if __name__ == '__main__':
 
     # get the argument parser ready
     parser = argparse.ArgumentParser(
-        description="Command line interface for https://intelx.io",
-        epilog="Usage: intelx -search 'riseup.net' -buckets 'pastes, darknet'"
+        description="Command line interface for https://intelx.io and https://identity.intelx.io/",
+        epilog="Usage: pyintelx -search 'riseup.net' -buckets 'pastes, darknet'"
     )
 
     parser.add_argument('-apikey', help="set the api key via command line")
