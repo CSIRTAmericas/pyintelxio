@@ -8,8 +8,7 @@ import json
 import time
 import tabulate
 import argparse
-from pyintelxio.intelx import intelx, IdentityService
-#from intelxapi import intelx, IdentityService
+from pyintelx import intelx,IdentityService
 from termcolor import colored
 from pygments import highlight
 from pygments.lexers import JsonLexer
