@@ -9,7 +9,7 @@ Installation
 ------------
 
 ```bash
-pip3 install pyintelxio
+pip3 install pyintelx
 ```
 
 Usage as command
@@ -17,9 +17,9 @@ Usage as command
 
 ```bash 
 
-pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 
+pyintelx -apikey {API_KEY} -search {search_term} -limit 10 
 
-pyintelxio -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled
+pyintelx -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled
 
 ```
 
@@ -29,18 +29,18 @@ SEARCH EXAMPLES
 * Query for 10 leaks containing pepe@example.com in intelx.io API
 
 ```bash
-pyintelxio -apikey {API_KEY} search -search pepe@example.com -limit 10
+pyintelx -apikey {API_KEY} search -search pepe@example.com -limit 10
 ```
 
 * Query for 10 leaks of accounts and passwords for domain example.com in identity.intelx.io API
 
 ```bash
-pyintelxio -apikey {API_KEY} -search example.com -limit 10 --identityenabled
+pyintelx -apikey {API_KEY} -search example.com -limit 10 --identityenabled
 ```
 * Download some leak file identied by SYSTEM_ID from some previous search
 
 ```bash
-pyintelxio -apikey {API_KEY} -download {SYSTEM_ID} -name {FILE_NAME} -bucket {BUCKET_NAME}
+pyintelx -apikey {API_KEY} -download {SYSTEM_ID} -name {FILE_NAME} -bucket {BUCKET_NAME}
 ```
 
 
@@ -50,7 +50,7 @@ Usage as library
 * Print account information
 
 ```python
-import pyintelxio
+import pyintelx
 api = 
 
 ```
@@ -58,7 +58,7 @@ api =
 * Search for 
 
 ```python
-import pyintelxio
+import pyintelx
 ```
 
 ## Buckets list
