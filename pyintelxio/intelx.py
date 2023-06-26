@@ -19,7 +19,8 @@ class IdentityService(intelx):
         else:
             return r.status_code
 
-    def search(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="",  terminate=[], analyze=False, skip_invalid=False):
+    def search(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="",  
+               terminate=[], analyze=False, skip_invalid=False):
         p = {
             "selector": term,
             "bucket": buckets,
@@ -39,7 +40,7 @@ class IdentityService(intelx):
         if (len(str(search_id)) <= 3):
             print(
                 f"[!] intelx.IDENTITY_SEARCH() Received {self.get_error(search_id)}")
-        while done == False:
+        while not done:
             time.sleep(1)
             r = self.get_search_results(search_id, maxresults=maxresults)
             for a in r['records']:
