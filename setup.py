@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pyintelx',
-    version='0.0.5',
+    version='0.0.6',
     description='This lib add support to use the Identity API from Intelx.io',
     install_requires=['requests'],
     license='MIT',
