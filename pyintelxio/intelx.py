@@ -19,7 +19,7 @@ class IdentityService(intelx):
         else:
             return r.status_code
 
-    def search(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="",  
+    def search(self, term, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="",
                terminate=[], analyze=False, skip_invalid=False):
         p = {
             "selector": term,
