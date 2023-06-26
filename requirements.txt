@@ -1,0 +1,1 @@
+intelx @ git+https://github.com/IntelligenceX/SDK#subdirectory=Python
