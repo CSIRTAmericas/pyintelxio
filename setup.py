@@ -1,4 +1,4 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -7,16 +7,15 @@ setup(
     name='pyintelxio',
     version='0.0.5',
     description='This lib add support to use the Identity API from Intelx.io',
-    packages=find_packages(),
     install_requires=['requests'],
     license='MIT',
-    keywords=['python, package, distribution']
+    keywords=['python, package, distribution'],
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='Fermin Baudino, Einar Lanfranco',
     url='https://github.com/csirtamericas/pyintelxio',
     packages=['pyintelxio'],
-    scripts=['pyintelxio/cli/publicwww'],
+    scripts=['pyintelxio/cli/pyintelxio'],
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
@@ -24,6 +23,5 @@ setup(
         'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    python_requires='>=3.6'    
+    python_requires='>=3.6'
 )
-import setuptools
