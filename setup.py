@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='pyintelxio',
+    name='pyintelx',
     version='0.0.5',
     description='This lib add support to use the Identity API from Intelx.io',
     install_requires=['requests'],
@@ -14,8 +14,8 @@ setup(
     long_description_content_type="text/markdown",
     author='Fermin Baudino, Einar Lanfranco',
     url='https://github.com/csirtamericas/pyintelxio',
-    packages=['pyintelxio'],
-    scripts=['pyintelxio/cli/pyintelxio'],
+    packages=['pyintelx'],
+    scripts=['pyintelx/cli/pyintelx'],
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
