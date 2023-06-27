@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 DEPENDENCIES = open('requirements.txt', 'r').read().split('\n')
 setup(
     name='pyintelx',
-    version='0.0.8',
+    version='0.0.9',
     description='This lib add support to use the Identity API from Intelx.io',
     license='MIT',
     keywords=['python, package, distribution'],
