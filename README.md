@@ -1,4 +1,4 @@
-PUBLICWWW Python Library   
+INTELX Python Library   
 ========================
 
 This python library is developed based on the original intelx library, but adding the functionality to use Intelx.io Identity API.
