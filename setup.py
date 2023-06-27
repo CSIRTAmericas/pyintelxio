@@ -2,19 +2,20 @@ from setuptools import setup
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
-
+    
+DEPENDENCIES = open('requirements.txt', 'r').read().split('\n')
 setup(
     name='pyintelx',
     version='0.0.8',
     description='This lib add support to use the Identity API from Intelx.io',
-    install_requires=['requests'],
     license='MIT',
     keywords=['python, package, distribution'],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author='Fermin Baudino, Einar Lanfranco',
+    author='Fermin Baudino, Einar Lanfranco, Federico Carrilao',
     url='https://github.com/csirtamericas/pyintelxio',
     packages=['pyintelx'],
+    install_requires=DEPENDENCIES,
     scripts=['pyintelx/cli/pyintelx'],
     classifiers=[
         'License :: OSI Approved :: MIT License',
