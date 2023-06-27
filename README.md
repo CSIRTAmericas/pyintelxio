@@ -8,8 +8,11 @@ Original source could be find here: *https://github.com/IntelligenceX/SDK/tree/m
 Installation
 ------------
 
+You need to install this package and de the original package from IntelX.io
+
 ```bash
-pip3 install pyintelx
+pip install pyintelx
+pip install "intelx @ git+https://github.com/IntelligenceX/SDK#subdirectory=Python"
 ```
 
 Usage as command
