@@ -43,9 +43,10 @@ class IdentityService(intelx):
         while not done:
             time.sleep(1)
             r = self.get_search_results(search_id, maxresults=maxresults)
-            for a in r['records']:
-                results.append(a)
-            maxresults -= len(r['records'])
+            if (r["status"] == 0 and r["records"]):
+                for a in r['records']:
+                    results.append(a)
+                maxresults -= len(r['records'])
             if (r['status'] == 1 or r['status'] == 2 or maxresults <= 0):
                 if (maxresults <= 0):
                     self.terminate_search(search_id)
