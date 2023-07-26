@@ -53,16 +53,36 @@ Usage as library
 * Print account information
 
 ```python
-import pyintelx
-api = 
+from pyintelx import intelx
+API_KEY = "your api key"
+
+intelx_service = intelx(API_KEY)
+
+intelx_service.GET_CAPABILITIES()
 
 ```
 
-* Search for 
+* Search for using intelx service
 
 ```python
-import pyintelx
+from pyintelx import intelx
+API_KEY = "your api key"
+
+intelx_service = intelx(API_KEY)
+intelx_service.search("example@example.com", maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=[])
 ```
+
+* Search for using identity service
+
+```python
+from pyintelx import IdentityService
+API_KEY = "your api key"
+
+identity_service = IdentityService(API_KEY)
+
+identity_service.search("example@example.com", maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=[])
+```
+
 
 ## Buckets list
 - darknet.tor
