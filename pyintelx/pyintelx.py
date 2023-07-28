@@ -37,6 +37,8 @@ class IdentityService(intelx):
                          headers=self.HEADERS, params=p)
         if r.status_code == 200:
             search_id = r.json()['id']
+        else:
+            return (r.status_code, r.text)
         if (len(str(search_id)) <= 3):
             print(
                 f"[!] intelx.IDENTITY_SEARCH() Received {self.get_error(search_id)}")
