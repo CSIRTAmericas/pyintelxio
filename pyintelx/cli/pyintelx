@@ -56,6 +56,12 @@ def idsearch(identity_ix, query, maxresults=100, buckets=[], timeout=5, datefrom
     s = identity_ix.search(term=query, maxresults=maxresults, buckets=buckets, timeout=timeout, datefrom=datefrom, dateto=dateto,  terminate=terminate)
     return s
 
+def export_accounts(identity_ix, query, maxresults=100, buckets=[], timeout=5, datefrom="", dateto="", terminate=[]):
+    if not args.raw:
+        print(colored(f"[{rightnow()}] Starting search of \"{args.search}\".", 'green'))
+    s = identity_ix.export_accounts(term=query, maxresults=maxresults, buckets=buckets, datefrom=datefrom, dateto=dateto,  terminate=terminate)
+    return s
+
 def get_stats(stats):
     if not args.raw:
         print(colored(f"[{rightnow()}] Gathering stats from search.\n", 'green'))
@@ -138,6 +144,7 @@ if __name__ == '__main__':
     parser.add_argument('--stats', help="show stats of search results", action="store_true")
     parser.add_argument('--raw', help="show raw json", action="store_true")
     parser.add_argument('--identityenabled', help="enable identity api search (requires api key)", action="store_true")
+    parser.add_argument('--accounts', help="search only leaked accounts on identity service", action="store_true")
     args = parser.parse_args()
 
     # configure IX & the API key
@@ -230,16 +237,28 @@ if __name__ == '__main__':
                 target=targetval
             )
         elif args.identityenabled:
-            search = idsearch(
-                ix_identity,
-                args.search,
-                maxresults=maxresults,
-                buckets=buckets,
-                timeout=timeout,
-                datefrom=datefrom,
-                dateto=dateto,
-                terminate=terminate
-            )
+            if args.accounts:
+                search = export_accounts(
+                    ix_identity,
+                    args.search,
+                    maxresults=maxresults,
+                    buckets=buckets,
+                    timeout=timeout,
+                    datefrom=datefrom,
+                    dateto=dateto,
+                    terminate=terminate
+                )
+            else:
+                search = idsearch(
+                    ix_identity,
+                    args.search,
+                    maxresults=maxresults,
+                    buckets=buckets,
+                    timeout=timeout,
+                    datefrom=datefrom,
+                    dateto=dateto,
+                    terminate=terminate
+                )
 
         if args.raw or args.identityenabled:
             print(json.dumps(search))

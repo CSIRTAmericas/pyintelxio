@@ -24,6 +24,8 @@ pyintelx -apikey {API_KEY} -search {search_term} -limit 10
 
 pyintelx -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled
 
+pyintelx -apikey {API_KEY} -search {search_term} -limit 10 --identityenabled --accounts
+
 ```
 
 SEARCH EXAMPLES
@@ -38,8 +40,15 @@ pyintelx -apikey {API_KEY} search -search pepe@example.com -limit 10
 * Query for 10 leaks of accounts and passwords for domain example.com in identity.intelx.io API
 
 ```bash
+pyintelx -apikey {API_KEY} -search example.com -limit 10 --identityenabled --accounts
+```
+
+* Query for 10 data leaks for domain example.com in identity.intelx.io API
+
+```bash
 pyintelx -apikey {API_KEY} -search example.com -limit 10 --identityenabled
 ```
+
 * Download some leak file identied by SYSTEM_ID from some previous search
 
 ```bash
@@ -72,7 +81,7 @@ intelx_service = intelx(API_KEY)
 intelx_service.search("example@example.com", maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=[])
 ```
 
-* Search for using identity service
+* Search for using identity Search Data Leaks service
 
 ```python
 from pyintelx import IdentityService
@@ -81,6 +90,17 @@ API_KEY = "your api key"
 identity_service = IdentityService(API_KEY)
 
 identity_service.search("example@example.com", maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=[])
+```
+
+* Search for using identity export accounts service
+
+```python
+from pyintelx import IdentityService
+API_KEY = "your api key"
+
+identity_service = IdentityService(API_KEY)
+
+identity_service.export_accounts("example.com", maxresults=max_results, datefrom=date_from, dateto=date_to, buckets=[])
 ```
 
 
