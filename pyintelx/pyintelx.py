@@ -9,6 +9,7 @@ class IdentityService(intelx):
         super().__init__(api_key, user_agent)
         self.API_ROOT = 'https://3.intelx.io'
         self.HEADERS = {'X-Key': self.API_KEY, 'User-Agent': self.USER_AGENT}
+        self.PAUSE_BETWEEN_REQUESTS = 1
 
     def get_search_results(self, id, format=1, maxresults=100):
         params = {'id': id, 'format': format, 'limit': maxresults}
@@ -43,13 +44,13 @@ class IdentityService(intelx):
             print(
                 f"[!] intelx.IDENTITY_SEARCH() Received {self.get_error(search_id)}")
         while not done:
-            time.sleep(1)
+            time.sleep(self.PAUSE_BETWEEN_REQUESTS)
             r = self.get_search_results(search_id, maxresults=maxresults)
             if (r["status"] == 0 and r["records"]):
                 for a in r['records']:
                     results.append(a)
                 maxresults -= len(r['records'])
-            if (r['status'] == 1 or r['status'] == 2 or maxresults <= 0):
+            if (r['status'] == 2 or maxresults <= 0):
                 if (maxresults <= 0):
                     self.terminate_search(search_id)
                 done = True
@@ -85,13 +86,13 @@ class IdentityService(intelx):
                 print(
                     f"[!] intelx.IDENTITY_EXPORT() Received {self.get_error(search_id)}")
             while not done:
-                time.sleep(1)
+                time.sleep(self.PAUSE_BETWEEN_REQUESTS)
                 r = self.get_search_results(search_id, maxresults=maxresults)
                 if (r["status"] == 0 and r["records"]):
                     for a in r['records']:
                         results.append(a)
                     maxresults -= len(r['records'])
-                if (r['status'] == 1 or r['status'] == 2 or maxresults <= 0):
+                if (r['status'] == 2 or maxresults <= 0):
                     if (maxresults <= 0):
                         self.terminate_search(search_id)
                     done = True
