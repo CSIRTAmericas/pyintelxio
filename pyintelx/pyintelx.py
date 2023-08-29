@@ -99,3 +99,18 @@ class IdentityService(intelx):
             return {'records': results}
         else:
             return (r.status_code, r.text)
+    
+    def export_csv(self, selector, date_from=None, date_to=None, limit=10, bucket_filter=[], terminate=None):
+        p = {
+            "selector": selector,
+            "bucket": bucket_filter,
+            "limit": limit,
+            "datefrom": date_from, # "YYYY-MM-DD HH:MM:SS",
+            "dateto": date_to, # "YYYY-MM-DD HH:MM:SS"
+            "terminate": terminate,
+        }
+        r = requests.get(self.API_ROOT + '/accounts/csv', headers=self.HEADERS, params=p)
+        if r.status_code == 200:
+            return r.json()['id']
+        else:
+            return (r.status_code, r.text)
