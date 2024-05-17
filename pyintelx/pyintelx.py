@@ -60,7 +60,7 @@ class IdentityService(intelx):
         p = {
             "id": id,
         }
-        r = requests.get(self.API_ROOT + '/live/search/internal',
+        r = requests.get(self.API_ROOT + '/live/search/terminate',
                          headers=self.HEADERS, params=p)
         if r.status_code == 204:
             return (r.status_code, r.text)
@@ -99,7 +99,7 @@ class IdentityService(intelx):
             return {'records': results}
         else:
             return (r.status_code, r.text)
-    
+
     def export_csv(self, selector, date_from=None, date_to=None, limit=10, bucket_filter=[], terminate=None):
         p = {
             "selector": selector,
