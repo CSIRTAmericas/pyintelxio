@@ -147,19 +147,30 @@ if __name__ == '__main__':
     parser.add_argument('--accounts', help="search only leaked accounts on identity service", action="store_true")
     args = parser.parse_args()
 
+     
+    ix = None
+    ix_identity = None
+
     # configure IX & the API key
     if 'INTELX_KEY' in os.environ:
         ix = intelx(os.environ['INTELX_KEY'])
-        if 'IDENTITY_ENABLED' in os.environ:
-            ix_identity = IdentityService(os.environ['INTELX_KEY'])
-
-    elif args.apikey:
+    
+    
+    if args.apikey:
         ix = intelx(args.apikey)
-        if args.identityenabled:
-            ix_identity = IdentityService(args.apikey)
+    
+    if 'IDENTITY_ENABLED' in os.environ and ix:
+        ix_identity = IdentityService(ix.API_KEY)
 
-    else:
+    if args.identityenabled and ix:
+        ix_identity = IdentityService(ix.API_KEY)
+
+    if not ix:
         print('No API key specified. Please use the "-apikey" parameter or set the environment variable "INTELX_KEY".')
+        exit()
+    
+    if not ix_identity and args.identityenabled:
+        print('No API key specified for the identity service. Please use the "-apikey" parameter or set the environment variable "INTELX_KEY".')
         exit()
 
     # main application flow
@@ -237,6 +248,7 @@ if __name__ == '__main__':
                 target=targetval
             )
         elif args.identityenabled:
+            print(colored(f"[{rightnow()}] Searching the identity service for \"{args.search}\".", 'green'))
             if args.accounts:
                 search = export_accounts(
                     ix_identity,

@@ -15,6 +15,15 @@ pip install pyintelx
 pip install "intelx @ git+https://github.com/IntelligenceX/SDK#subdirectory=Python"
 ```
 
+Enviromental Variables
+------------
+You can set up this two variables if you want
+
+```bash
+INTELX_KEY= {api_key} # API KEY of your IntelligenceX account
+IDENTITY_ENABLED= {anything} # If present identity api search is enabled. Identity service needs the api key set up.
+```
+
 Usage as command
 ================
 
